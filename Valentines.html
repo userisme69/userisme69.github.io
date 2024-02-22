@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentines</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+  h1 {
+    margin-bottom: 20px;
+  }
+  button {
+    font-size: 20px;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    transition: all 0.3s ease;
+  }
+  button:hover {
+    transform: scale(1.05);
+  }
+  #yesButton {
+    background-color: green;
+  }
+  #noButton {
+    background-color: red;
+  }
+  #yayText {
+    font-size: 28px; /* Adjust the font size of "YAY" */
+  }
+  #noTurningBack {
+    font-size: 32px; /* Make "No Turning Back" bigger than "YAY" */
+  }
+</style>
+</head>
+<body>
+<img id="valentineGif" src="https://i.pinimg.com/originals/83/a8/a9/83a8a9ee94f941a41e840c007499fe55.gif" alt="Valentine's Day GIF" width="300px">
+<h1>Will you be my Valentine?</h1>
+<button id="yesButton">Yes</button>
+<button id="noButton">No</button>
+<div id="reaction" style="display: none;">
+  <p id="reactionMessage"></p>
+</div>
+<div id="yayMessage" style="display: none;">
+  <p id="yayText">YAAAAAAAY!!!!!</p>
+</div>
+
+<script>
+  const yesButton = document.getElementById('yesButton');
+  const noButton = document.getElementById('noButton');
+  const reactionDiv = document.getElementById('reaction');
+  const reactionMessage = document.getElementById('reactionMessage');
+  const yayMessageDiv = document.getElementById('yayMessage');
+  const yayText = document.getElementById('yayText');
+  const valentineGif = document.getElementById('valentineGif');
+  
+  const noMessages = ["Pleaseee", "Don't do this to me", "You're breaking my heart", "Are you really sure?","Im gonna cry ;(","It's my treat"];
+
+  let yesClicked = false;
+
+  noButton.addEventListener('click', function() {
+    noButton.style.fontSize = '18px'; // Make "No" button smaller
+    yesButton.style.fontSize = '24px'; // Make "Yes" button bigger
+    if (reactionDiv.style.display === 'none') {
+      reactionDiv.style.display = 'block';
+    }
+    const randomIndex = Math.floor(Math.random() * noMessages.length);
+    reactionMessage.textContent = noMessages[randomIndex];
+    if (yayMessageDiv.style.display === 'block') {
+      yayText.textContent = '';
+    }
+    if (!yesClicked) {
+      // Change the GIF when "No" button is clicked only if "Yes" hasn't been clicked before
+      valentineGif.src = "https://i.pinimg.com/originals/86/2e/8c/862e8c07cf761d7170fc8957b10dd04c.gif";
+    }
+  });
+
+  yesButton.addEventListener('click', function() {
+    reactionDiv.style.display = 'none';
+    noButton.style.fontSize = '20px';
+    yesButton.style.fontSize = '26px'; // Increase "Yes" button size further
+    yayMessageDiv.style.display = 'block';
+    reactionMessage.textContent = '';
+    yesClicked = true;
+    // Change the GIF when "Yes" button is clicked
+    valentineGif.src = "https://i.pinimg.com/originals/59/2f/f2/592ff215543a2df8ae7f65e6eecee971.gif";
+  });
+
+  noButton.addEventListener('click', function() {
+    if (yayMessageDiv.style.display === 'block') {
+      reactionMessage.textContent = 'No Turning Back ;>';
+      reactionMessage.style.fontSize = '32px'; // Make "No Turning Back" bigger than "YAY"
+      yayText.textContent = '';
+    }
+    yesButton.style.fontSize = '28px'; // Make "Yes" button bigger than "No" button
+  });
+</script>
+</body>
+</html>
